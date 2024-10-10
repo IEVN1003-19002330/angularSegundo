@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="col-4 pt-5 center-container center-content">
+    <h2>DATOS PERSONALES</h2>
+    <form [formGroup]="datosForm">
+        <div>
+            <label for="nombre">Nombre</label>
+            <input id="nombre" formControlName="nombre" type="text" required/>
+        </div>
+  
+        <div>
+            <label for="apartamento">A paterno</label>
+            <input id="apaterno" formControlName="apaterno" type="text" required/>
+        </div>
+        
+        <div>
+            <label for="apartamento">A materno</label>
+            <input id="amaterno" formControlName="amaterno" type="text" required />
+        </div>
+  
+        <div>
+            <label for="dia">Día</label>
+            <input id="dia" formControlName="dia" type="number" />
+            <label for="mes">Mes</label>
+            <input id="mes" formControlName="mes" type="number" />
+            <label for="anio">Año</label>
+            <input id="anio" formControlName="anio" type="number" />
+        </div>
+  
+        <div>
+            <label>Sexo</label>
+            <label>
+                <input type="radio" formControlName="sexo" value="Masculino" />
+                Masculino
+            </label>
+            <label>
+                <input type="radio" formControlName="sexo" value="Femenino" />
+                Femenino
+            </label>
+        </div>
+  
+        <button type="submit" (click)="onSubmit()">Imprimir</button>
+    </form>
+    </div>
+</div>
+  
+
+<div *ngIf="resultado">
+  <h3>{{ resultado }}</h3>
+</div>
