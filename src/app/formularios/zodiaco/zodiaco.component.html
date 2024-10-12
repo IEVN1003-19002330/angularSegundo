@@ -1,49 +1,69 @@
-<div class="container">
-    <div class="col-4 pt-5 center-container center-content">
-    <h2>DATOS PERSONALES</h2>
-    <form [formGroup]="datosForm">
-        <div>
-            <label for="nombre">Nombre</label>
-            <input id="nombre" formControlName="nombre" type="text" required/>
+<div class="container mx-auto flex flex-col md:flex-row">
+    <div class="w-full md:w-1/2 p-5">
+      <h2 class="text-center text-xl font-bold mb-4">Datos Personales</h2>
+      <form [formGroup]="datosForm" class="space-y-4">
+        <div class="flex flex-col">
+          <label for="nombre" class="font-medium">Nombre</label>
+          <input id="nombre" formControlName="nombre" type="text" required class="border border-gray-300 p-2 rounded-md"/>
         </div>
   
-        <div>
-            <label for="apartamento">A paterno</label>
-            <input id="apaterno" formControlName="apaterno" type="text" required/>
-        </div>
-        
-        <div>
-            <label for="apartamento">A materno</label>
-            <input id="amaterno" formControlName="amaterno" type="text" required />
+        <div class="flex flex-col">
+          <label for="apaterno" class="font-medium">Apaterno</label>
+          <input id="apaterno" formControlName="apaterno" type="text" required class="border border-gray-300 p-2 rounded-md"/>
         </div>
   
-        <div>
-            <label for="dia">Día</label>
-            <input id="dia" formControlName="dia" type="number" />
-            <label for="mes">Mes</label>
-            <input id="mes" formControlName="mes" type="number" />
-            <label for="anio">Año</label>
-            <input id="anio" formControlName="anio" type="number" />
+        <div class="flex flex-col">
+          <label for="amaterno" class="font-medium">Amaterno</label>
+          <input id="amaterno" formControlName="amaterno" type="text" required class="border border-gray-300 p-2 rounded-md"/>
         </div>
   
+        <!-- Fecha de Nacimiento -->
+        <div class="flex space-x-2">
+          <div>
+            <label for="dia" class="font-medium">Día</label>
+            <input id="dia" formControlName="dia" type="number" class="border border-gray-300 p-2 rounded-md"/>
+          </div>
+          <div>
+            <label for="mes" class="font-medium">Mes</label>
+            <input id="mes" formControlName="mes" type="number" class="border border-gray-300 p-2 rounded-md"/>
+          </div>
+          <div>
+            <label for="anio" class="font-medium">Año</label>
+            <input id="anio" formControlName="anio" type="number" class="border border-gray-300 p-2 rounded-md"/>
+          </div>
+        </div>
+  
+        <!-- Sexo -->
         <div>
-            <label>Sexo</label>
-            <label>
-                <input type="radio" formControlName="sexo" value="Masculino" />
-                Masculino
+          <label class="font-medium">Sexo</label>
+          <div class="flex items-center space-x-4">
+            <label class="flex items-center">
+              <input type="radio" formControlName="sexo" value="Masculino" class="mr-2"/>
+              Masculino
             </label>
-            <label>
-                <input type="radio" formControlName="sexo" value="Femenino" />
-                Femenino
+            <label class="flex items-center">
+              <input type="radio" formControlName="sexo" value="Femenino" class="mr-2"/>
+              Femenino
             </label>
+          </div>
         </div>
   
-        <button type="submit" (click)="onSubmit()">Imprimir</button>
-    </form>
+        <button type="submit" (click)="onSubmit()" class="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 w-full">
+          Imprimir
+        </button>
+      </form>
     </div>
-</div>
-  
 
-<div *ngIf="resultado">
-  <h3>{{ resultado }}</h3>
-</div>
+    <div class="w-full md:w-1/2 p-5">
+      <div *ngIf="resultado" class="text-center space-y-4">
+        <h3 class="text-lg font-semibold">Hola <span class="font-bold">{{ datosForm.value.nombre }} {{ datosForm.value.apaterno }} {{ datosForm.value.amaterno }}</span></h3>
+        <p class="text-lg">Tienes <span class="font-bold">{{ edad }}</span> años</p>
+        <p>Tu signo zodiacal es:</p>
+        <div class="flex justify-center items-center">
+          <img [src]="signoZodiacoUrl" alt="{{ signoZodiaco }}" class="w-20 h-20 rounded-full border-2 border-gray-300"/>
+        </div>
+        <p class="text-lg">Es <span class="font-bold">{{ signoZodiaco }}</span></p>
+      </div>
+    </div>
+  </div>
+  

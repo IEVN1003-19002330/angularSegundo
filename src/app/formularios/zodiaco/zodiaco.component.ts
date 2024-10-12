@@ -1,20 +1,23 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-zodiaco',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './zodiaco.component.html',
   styleUrl: './zodiaco.component.css'
 })
+
 export class ZodiacoComponent {
 
   datosForm: FormGroup;
   resultado: string = '';
   edad: number = 0;
   signoZodiaco: string = '';
+  signoZodiacoUrl: string = '';
   currentYear: number = new Date().getFullYear();
 
   constructor(private fb: FormBuilder) {
@@ -63,8 +66,43 @@ export class ZodiacoComponent {
   }
 
   obtenerSignoChino(anio: number): string {
-    const signosChinos = ['Rata', 'Buey', 'Tigre', 'Conejo', 'Dragón', 'Serpiente', 'Caballo', 'Cabra', 'Mono', 'Gallo', 'Perro', 'Cerdo'];
-    return signosChinos[anio % 12];
+    const signosChinos = [
+      'Rata',     // 0
+      'Buey',     // 1
+      'Tigre',    // 2
+      'Conejo',   // 3
+      'Dragón',   // 4
+      'Serpiente',// 5
+      'Caballo',  // 6
+      'Cabra',    // 7
+      'Mono',     // 8
+      'Gallo',    // 9
+      'Perro',    // 10
+      'Cerdo'     // 11
+    ];
+
+    const baseYear = 1924;
+    const index = (anio - baseYear) % 12;
+    return signosChinos[(index + 12) % 12];
+  }
+  
+
+  obtenerSignoZodiacoImagen(signo: string): string {
+    const imagenesZodiaco: { [key: string]: string } = {
+      'Rata': 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Rata.jpg',
+      'Buey': 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Buey.jpg',
+      'Tigre': 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Tigre.jpg',
+      'Conejo': 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Conejo.jpg',
+      'Dragón': 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Dragon.jpg',
+      'Serpiente':'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Serpiente.jpg',
+      'Caballo':'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Caballo.jpg',
+      'Cabra':'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Cabra.jpg',
+      'Mono':'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Mono.jpg',
+      'Gallo':'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Gallo.jpg',
+      'Perro':'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Perro.jpg',
+      'Cerdo':'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Cerdo.jpg'
+    };
+    return imagenesZodiaco[signo] || 'ruta/de/imagen/por_defecto.jpg';
   }
 
   esBisiesto(anio: number): boolean {
@@ -75,6 +113,7 @@ export class ZodiacoComponent {
     const { apaterno, amaterno, nombre, dia, mes, anio } = this.datosForm.value;
     this.edad = this.calcularEdad(dia, mes, anio);
     this.signoZodiaco = this.obtenerSignoChino(anio);
+    this.signoZodiacoUrl = this.obtenerSignoZodiacoImagen(this.signoZodiaco);
     this.resultado = `Hola ${nombre} ${apaterno} ${amaterno}, tienes ${this.edad} años y tu signo zodiacal chino es ${this.signoZodiaco}.`;
   }
 }

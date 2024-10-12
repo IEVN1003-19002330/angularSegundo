@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { Ejemplo1Component } from "./formularios/ejemplo1/ejemplo1.component";
 import { ZodiacoComponent } from "./formularios/zodiaco/zodiaco.component";
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
