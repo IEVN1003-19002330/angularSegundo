@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './zodiaco.component.css'
 })
 
-export class ZodiacoComponent {
+export default class ZodiacoComponent {
 
   datosForm: FormGroup;
   resultado: string = '';
