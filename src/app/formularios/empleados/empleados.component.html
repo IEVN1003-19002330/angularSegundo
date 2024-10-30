@@ -1,0 +1,89 @@
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 5px;
+  }
+</style>
+
+<div class="grid grid-cols-2 gap-4 h-screen">
+  <div class="flex justify-center">
+    <form [formGroup]="formGroup" (ngSubmit)="registrarEmpleado()" class="max-w-sm">
+      <div class="mb-5">
+        <label for="matricula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Matrícula</label>
+        <input type="number" id="matricula" formControlName="matricula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingresa tu matrícula" />
+      </div>
+
+      <div class="mb-5">
+        <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+        <input type="text" id="nombre" formControlName="nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingresa tu nombre" />
+      </div>
+
+      <div class="mb-5">
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+        <input type="email" id="email" formControlName="correo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingresa tu email" />
+      </div>
+
+      <div class="mb-5">
+        <label for="edad" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Edad</label>
+        <input type="number" id="edad" formControlName="edad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingresa tu edad" />
+      </div>
+
+      <div class="mb-5">
+        <label for="horas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Horas trabajadas</label>
+        <input type="number" id="horas" formControlName="horasTrabajadas" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingresa no. de horas trabajadas" />
+      </div>
+
+      <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrar</button>
+    </form>
+  </div>
+
+  <div class="flex flex-col justify-center items-center text-center">
+    <button (click)="mostrarRegistros()" type="button" class="text-white bg-green-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Imprimir</button>
+    <br>
+
+    <div *ngIf="empleados.length > 0">
+      <table id="tablaEmpleados">
+        <thead>
+          <tr>
+            <th>Matrícula</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Edad</th>
+            <th>Horas trabajadas</th>
+            <th>Horas a pagar</th>
+            <th>Pago extras</th>
+            <th>Subtotal</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let empleado of empleados">
+            <td>{{empleado.matricula}}</td>
+            <td>{{empleado.nombre}}</td>
+            <td>{{empleado.correo}}</td>
+            <td>{{empleado.edad}}</td>
+            <td>{{empleado.horasTrabajadas}}</td>
+            <td>{{empleado.horasXPagar | currency}}</td>
+            <td>{{empleado.horasExtras | currency}}</td>
+            <td>{{empleado.subtotal | currency}}</td>
+            <td>
+              <button (click)="modificarEmpleado(empleado.matricula)" type="button" class="text-white bg-orange-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Modificar</button>
+              <br>
+              <button (click)="eliminarEmpleado(empleado.matricula)" type="button" class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Eliminar</button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="7" class="font-bold text-right">Total a pagar:</td>
+            <td>{{ totalAPagar | currency }}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<form [formGroup]="formulario" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <!-- Primera Banda (Color1) -->
+  <div class="mb-4">
+    <label for="color1" class="block text-gray-700 text-sm font-bold mb-2">Primera Banda (Color1)</label>
+    <select formControlName="color1" id="color1" class="block w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white">
+      <option value="0">Negro</option>
+      <option value="1">Café</option>
+      <option value="2">Rojo</option>
+      <option value="3">Naranja</option>
+      <option value="4">Amarillo</option>
+      <option value="5">Verde</option>
+      <option value="6">Azul</option>
+      <option value="7">Violeta</option>
+      <option value="8">Gris</option>
+      <option value="9">Blanco</option>
+    </select>
+  </div>
+
+  <!-- Segunda Banda (Color2) -->
+  <div class="mb-4">
+    <label for="color2" class="block text-gray-700 text-sm font-bold mb-2">Segunda Banda (Color2)</label>
+    <select formControlName="color2" id="color2" class="block w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white">
+      <option value="0">Negro</option>
+      <option value="1">Café</option>
+      <option value="2">Rojo</option>
+      <option value="3">Naranja</option>
+      <option value="4">Amarillo</option>
+      <option value="5">Verde</option>
+      <option value="6">Azul</option>
+      <option value="7">Violeta</option>
+      <option value="8">Gris</option>
+      <option value="9">Blanco</option>
+    </select>
+  </div>
+
+  <!-- Tercera Banda (Color3) -->
+  <div class="mb-4">
+    <label for="color3" class="block text-gray-700 text-sm font-bold mb-2">Tercera Banda (Multiplicador)</label>
+    <select formControlName="color3" id="color3" class="block w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white">
+      <option value="0">Negro</option>
+      <option value="1">Café</option>
+      <option value="2">Rojo</option>
+      <option value="3">Naranja</option>
+      <option value="4">Amarillo</option>
+      <option value="5">Verde</option>
+      <option value="6">Azul</option>
+      <option value="7">Violeta</option>
+      <option value="8">Gris</option>
+      <option value="9">Blanco</option>
+    </select>
+  </div>
+
+  <!-- Tolerancia -->
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2">Tolerancia</label>
+    <div class="flex items-center">
+      <input type="radio" formControlName="tolerancia" value="oro" id="oro" class="mr-2" />
+      <label for="oro" class="mr-4">Oro</label>
+      <input type="radio" formControlName="tolerancia" value="plata" id="plata" class="mr-2" />
+      <label for="plata">Plata</label>
+    </div>
+  </div>
+
+  <!-- Botones -->
+  <div class="flex items-center justify-between">
+    <button type="button" (click)="guardarColores()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+      Guardar
+    </button>
+    <button type="button" (click)="imprimirResultados()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+      Imprimir
+    </button>
+  </div>
+</form>
+
+<!-- Mostrar la tabla solo cuando el botón Imprimir haya sido presionado -->
+<div *ngIf="mostrarTabla && resultados.length > 0" class="mt-8">
+  <table class="table-auto w-full bg-white shadow-md rounded">
+    <thead>
+      <tr class="bg-gray-200 text-gray-700">
+        <th class="px-4 py-2">Color1</th>
+        <th class="px-4 py-2">Color2</th>
+        <th class="px-4 py-2">Color3</th>
+        <th class="px-4 py-2">Tolerancia</th>
+        <th class="px-4 py-2">Valor</th>
+        <th class="px-4 py-2">Valor Máximo</th>
+        <th class="px-4 py-2">Valor Mínimo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="text-center" *ngFor="let resultado of resultados">
+        <td class="border px-4 py-2" [style.background-color]="resultado?.estilocolor1">{{ resultado?.color1 }}</td>
+        <td class="border px-4 py-2" [style.background-color]="resultado?.estilocolor2">{{ resultado?.color2 }}</td>
+        <td class="border px-4 py-2" [style.background-color]="resultado?.estilocolor3">{{ resultado?.color3 }}</td>
+        <td class="border px-4 py-2">{{ resultado?.tolerancia }}</td>
+        <td class="border px-4 py-2">{{ resultado?.valor }} Ω</td>
+        <td class="border px-4 py-2">{{ resultado?.valorMaximo }} Ω</td>
+        <td class="border px-4 py-2">{{ resultado?.valorMinimo }} Ω</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
